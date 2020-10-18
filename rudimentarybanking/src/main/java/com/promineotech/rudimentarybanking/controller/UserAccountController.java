@@ -19,7 +19,7 @@ import com.promineotech.rudimentarybanking.service.AccountService;
 import com.promineotech.rudimentarybanking.service.AuthenticationService;
 
 @RestController
-@RequestMapping("/user/{id}/account") 
+@RequestMapping("/user") 
 public class UserAccountController {
 	
 	@Autowired
@@ -47,7 +47,7 @@ public class UserAccountController {
 //		}
 //	}
 	
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(value ="/login", method = RequestMethod.POST)
 	public ResponseEntity<Object> login(@RequestBody Credentials cred){
 		try {
 			return new ResponseEntity<Object>(authService.userLogin(cred), HttpStatus.OK);
@@ -56,7 +56,7 @@ public class UserAccountController {
 		}
 	}
 	
-	@RequestMapping(value="/{id}",method=RequestMethod.GET)
+	@RequestMapping(value="/{id}/account/{id}",method=RequestMethod.GET)
 	public ResponseEntity<Object> showUserAccount(@PathVariable Long id) {
 		try {
 			return new ResponseEntity<Object>(accountService.getAccountById(id), HttpStatus.OK);
@@ -65,7 +65,7 @@ public class UserAccountController {
 		}
 	}
 	
-	@RequestMapping(method=RequestMethod.GET)
+	@RequestMapping(value="/{id}/account",method=RequestMethod.GET)
 	public ResponseEntity<Object> showAllUserAccounts(@PathVariable Long id) {
 		try {
 		return new ResponseEntity<Object>(accountService.getUserAccounts(id), HttpStatus.OK);
@@ -75,7 +75,7 @@ public class UserAccountController {
 	}
 	
 	
-	@RequestMapping(value="/action", method=RequestMethod.PUT)
+	@RequestMapping(value="/{id}/account/{id}/action", method=RequestMethod.PUT)
 	public ResponseEntity<Object> newAction(@RequestBody Action action) {
 		try {
 			return new ResponseEntity<Object>(accountService.changeBalance(action), HttpStatus.OK);
@@ -84,7 +84,7 @@ public class UserAccountController {
 		}
 	}
 	
-	@RequestMapping(value="/transfer", method=RequestMethod.PUT)
+	@RequestMapping(value="/{id}/account/{id}/transfer", method=RequestMethod.PUT)
 	public ResponseEntity<Object> newTransfer(@RequestBody Transfer transfer) {
 		try {
 			return new ResponseEntity<Object>(accountService.newTransfer(transfer), HttpStatus.OK);

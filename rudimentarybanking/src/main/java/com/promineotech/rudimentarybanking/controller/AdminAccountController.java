@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.promineotech.rudimentarybanking.entites.Account;
-import com.promineotech.rudimentarybanking.entites.User;
 import com.promineotech.rudimentarybanking.requests.Action;
 import com.promineotech.rudimentarybanking.requests.Transfer;
 import com.promineotech.rudimentarybanking.service.AccountService;
@@ -58,14 +57,6 @@ public class AdminAccountController {
 			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.NOT_FOUND);
 		}
 	}
-//	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
-//	public ResponseEntity<Object> updateUser(@RequestBody User user, @PathVariable Long id) {
-//		try {
-//			return new ResponseEntity<Object>(userService.updateUserInfo(user, id), HttpStatus.OK);
-//		} catch (Exception e) {
-//			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.NOT_FOUND);
-//		}
-//	}
 	
 	@RequestMapping(value="/{id}/action", method=RequestMethod.PUT)
 	public ResponseEntity<Object> changeBalance(@RequestBody Action action) {
