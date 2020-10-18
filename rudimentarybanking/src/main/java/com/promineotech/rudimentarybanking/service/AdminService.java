@@ -34,6 +34,7 @@ public class AdminService {
 		try {
 			Admin updateAdmin = repo.findOne(id);
 			updateAdmin.setUsername(admin.getUsername());
+			updateAdmin.setEmail(admin.getEmail());
 			updateAdmin.setPassword(BCrypt.hashpw(admin.getPassword(), BCrypt.gensalt()));;
 			return repo.save(updateAdmin);
 		} catch (Exception e) {

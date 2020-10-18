@@ -47,6 +47,15 @@ public class UserAccountController {
 //		}
 //	}
 	
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public ResponseEntity<Object> login(@RequestBody Credentials cred){
+		try {
+			return new ResponseEntity<Object>(authService.userLogin(cred), HttpStatus.OK);
+		} catch(Exception e) {
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
 	@RequestMapping(value="/{id}",method=RequestMethod.GET)
 	public ResponseEntity<Object> showUserAccount(@PathVariable Long id) {
 		try {

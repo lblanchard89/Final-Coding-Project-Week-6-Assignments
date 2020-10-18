@@ -6,6 +6,6 @@ import com.promineotech.rudimentarybanking.entites.Admin;
 
 public interface AdminRepository extends CrudRepository<Admin, Long> {
 
-	Admin findByEmail(String email);
+	Admin findByUsername(String username);
 
 }

@@ -102,6 +102,7 @@ public class User {
 		this.accounts = accounts;
 	}
 
+	@Column(unique = true)
 	public String getUsername() {
 		return username;
 	}

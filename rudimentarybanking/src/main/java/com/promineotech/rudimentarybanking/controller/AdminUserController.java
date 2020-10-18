@@ -44,8 +44,8 @@ public class AdminUserController {
 		}
 	}
 	
-	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<Object> showUsers() {
+	@RequestMapping(value="/all",method=RequestMethod.GET)
+	public ResponseEntity<Object> showAllUsers() {
 		return new ResponseEntity<Object>(userService.getUsers(), HttpStatus.OK);
 	}
 	

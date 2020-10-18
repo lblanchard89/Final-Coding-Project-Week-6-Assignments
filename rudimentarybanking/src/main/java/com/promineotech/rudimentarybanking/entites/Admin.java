@@ -51,6 +51,8 @@ public class Admin {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	@Column(unique = true)
 	public String getUsername() {
 		return username;
 	}

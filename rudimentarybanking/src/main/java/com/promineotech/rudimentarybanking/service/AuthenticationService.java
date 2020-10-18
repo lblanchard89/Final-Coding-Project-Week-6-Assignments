@@ -1,6 +1,8 @@
 package com.promineotech.rudimentarybanking.service;
 
 import java.security.Key;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
@@ -13,6 +15,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
+import com.promineotech.rudimentarybanking.entites.Account;
 import com.promineotech.rudimentarybanking.entites.Admin;
 import com.promineotech.rudimentarybanking.entites.Credentials;
 import com.promineotech.rudimentarybanking.entites.User;
@@ -48,7 +51,7 @@ public class AuthenticationService {
 				adminRepo.save(admin);
 				return admin;
 			} catch (DataIntegrityViolationException e) {
-				throw new AuthenticationException("Email already in use.");
+				throw new AuthenticationException("Email is already in use.");
 			}
 		}
 	}
@@ -65,32 +68,32 @@ public class AuthenticationService {
 				userRepo.save(user);
 				return user;
 			} catch (DataIntegrityViolationException e) {
-				throw new AuthenticationException("Email already in use.");
+				throw new AuthenticationException("Email is already in use.");
 			}
 		}
 	}
 
 	public AdminLoggedInView adminLogin(Credentials cred) throws AuthenticationException {
-		Admin foundAdmin = adminRepo.findByEmail(cred.getEmail());
+		Admin foundAdmin = adminRepo.findByUsername(cred.getUsername());
 		if (BCrypt.checkpw(cred.getPassword(), foundAdmin.getPassword())) {
 			AdminLoggedInView view = new AdminLoggedInView();
 			view.setAdmin(foundAdmin);
 			view.setJwt(adminGenerateToken(foundAdmin));
 			return view;
 		} else {
-			throw new AuthenticationException("Incorrect email or password.");
+			throw new AuthenticationException("Incorrect username or password.");
 		}
 	}
 	
 	public UserLoggedInView userLogin(Credentials cred) throws AuthenticationException {
-		User foundUser = userRepo.findByEmail(cred.getEmail());
+		User foundUser = userRepo.findByUsername(cred.getUsername());
 		if (BCrypt.checkpw(cred.getPassword(), foundUser.getPassword())) {
 			UserLoggedInView view = new UserLoggedInView();
 			view.setUser(foundUser);
 			view.setJwt(userGenerateToken(foundUser));
 			return view;
 		} else {
-			throw new AuthenticationException("Incorrect email or password.");
+			throw new AuthenticationException("Incorrect username or password.");
 		}
 	}
 
